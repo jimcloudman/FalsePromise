@@ -72,5 +72,28 @@ namespace FalsePromise.Router.Tests
 
             Assert.DoesNotThrow(() => act());
         }
+
+        [Test]
+        public void ServiceDoesNotHaveUnattributedMethod()
+        {
+            var router = new RequestRouter();
+
+            router.Register(new TestService());
+
+            Assert.IsFalse(router._serviceCollection.ContainsKey("TestService.TestUnattributedMethod"));
+        }
+
+        [Test]
+        public void RegisterVoidMethodWithoutExceptions()
+        {
+            Action act = () =>
+            {
+                var router = new RequestRouter();
+                var service = new TestServiceWithVoidMethod();
+                router.Register(service);
+            };
+
+            Assert.DoesNotThrow(() => act());
+        }
     }
 }
