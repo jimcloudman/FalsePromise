@@ -62,7 +62,7 @@ namespace FalsePromise.Router.Tests
         }
 
         [Test]
-        public void ServiceWithDuplicateMethodsThrowsException()
+        public void ServiceWithDuplicateMethodsDoesNotThrowException()
         {
             Action act = () =>
             {
@@ -70,7 +70,7 @@ namespace FalsePromise.Router.Tests
                 router.Register(new TestServiceWithOverloads());
             };
 
-            Assert.Throws<RouterException>(() => act());
+            Assert.DoesNotThrow(() => act());
         }
     }
 }
