@@ -27,4 +27,28 @@ namespace FalsePromise.Router.Tests.TestServices
             return problem;
         }
     }
+
+    internal class TestServiceWithHiddenMethods
+    {
+        [Route]
+        public string TestStringMethod()
+        {
+            return "Success";
+        }
+
+        public string TestUnattributedMethod()
+        {
+            return "Success";
+        }
+    }
+
+    internal class TestServiceWithVoidMethod
+    {
+        [Route]
+        public void TestVoidMethod()
+        {
+
+        }
+
+    }
 }

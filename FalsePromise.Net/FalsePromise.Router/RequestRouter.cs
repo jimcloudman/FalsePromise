@@ -15,10 +15,15 @@ namespace FalsePromise.Router
 	public class RequestRouter
     {
 		internal readonly Dictionary<string, object> _serviceCollection = new Dictionary<string, object>();
-		internal readonly Dictionary<string, RouterMethod> _typeCollection = new Dictionary<string, RouterMethod>();
+		internal readonly Dictionary<string, List<RouterMethod>> _typeCollection = new Dictionary<string, List<RouterMethod>>();
 
 		public void Register<T>(T service)
 		{
+			var type = typeof(T);
+			if (_serviceCollection.Any(s => s.Key.StartsWith(type.Name) && s.Value.GetType() == type))
+			{
+				throw new RouterException($"Service {type.Name} already registered");
+			}
 			try
 			{
 				var methods = typeof(T).GetMethods().Where(r => r.CustomAttributes.Any(a => a.AttributeType == typeof(RouteAttribute)));
@@ -27,7 +32,10 @@ namespace FalsePromise.Router
 					var routeAttr = (RouteAttribute)method.GetCustomAttribute(typeof(RouteAttribute));
 					var methodName = routeAttr.Name ?? method.Name;
 					var route = $"{typeof(T).Name}.{methodName}";
-					_serviceCollection.Add(route, service);
+					if (!_serviceCollection.ContainsKey(route))
+					{
+						_serviceCollection.Add(route, service);
+					}
 					BuildParameterWrapper(route, method, methodName);
 				}
 			}
@@ -59,26 +67,36 @@ namespace FalsePromise.Router
 				throw new RouterException("No registered service matching route", ex);
 			}
 
-			RouterMethod method;
+			List<RouterMethod> methods;
 			try
 			{
-				method = _typeCollection.Single(s => s.Key == result.Route).Value;
+				methods = _typeCollection.Single(s => s.Key == result.Route).Value;
 			}
 			catch (Exception ex)
 			{
 				throw new RouterException("No registered type matching route", ex);
 			}
 
-			// TODO: more error handling
-			var request = JSON.Deserialize(result.Parameters, method.ParameterType);
+			RouterMethod method;
+			if (methods.Count == 1)
+            {
+				method = methods.Single();
+            }
+			else
+			{
+				throw new NotImplementedException("Need to add overloaded method support");
+			}
 
-			var values = method.ParameterType.GetProperties().ToDictionary(p => p.Name, p => p.GetValue(request));
-			var methodParameters = method.MethodInfo.GetParameters();
-			var parameterValues = methodParameters.Select(p => values[p.Name]).ToArray();
-			var methodResult = method.MethodInfo.Invoke(service, parameterValues);
+            // TODO: more error handling
+            var request = JSON.Deserialize(result.Parameters, method.ParameterType);
 
-			return JSON.Serialize(methodResult);
-		}
+            var values = method.ParameterType.GetProperties().ToDictionary(p => p.Name, p => p.GetValue(request));
+            var methodParameters = method.MethodInfo.GetParameters();
+            var parameterValues = methodParameters.Select(p => values[p.Name]).ToArray();
+            var methodResult = method.MethodInfo.Invoke(service, parameterValues);
+
+            return JSON.Serialize(methodResult);
+        }
 
 		private void BuildParameterWrapper(string route, MethodInfo method, string methodName)
 		{
@@ -107,11 +125,19 @@ namespace FalsePromise.Router
 			}
 
 			var newType = tBuilder.CreateType();
-			_typeCollection.Add(route, new RouterMethod
+			var newMethod = new RouterMethod
 			{
 				MethodInfo = method,
 				ParameterType = newType
-			});
+			};
+			if (_typeCollection.ContainsKey(route))
+            {
+				_typeCollection[route].Add(newMethod);
+            }
+			else
+			{
+				_typeCollection.Add(route, new List<RouterMethod> { newMethod });
+			}
 		}
 
 
