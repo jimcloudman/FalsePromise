@@ -46,7 +46,7 @@ namespace FalsePromise.Router.Tests
 
             var result = router.Execute($@"{{ ""route"": ""TestService.TestStringMethod"", ""parameters"": ""{{}}""}}");
 
-            Assert.AreEqual("Success", result);
+            Assert.AreEqual(@"""Success""", result);
         }
     }
 }
