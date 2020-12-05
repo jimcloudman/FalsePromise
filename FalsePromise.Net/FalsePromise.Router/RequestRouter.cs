@@ -77,18 +77,26 @@ namespace FalsePromise.Router
 				throw new RouterException("No registered type matching route", ex);
 			}
 
-			throw new NotImplementedException();
+			RouterMethod method;
+			if (methods.Count == 1)
+            {
+				method = methods.Single();
+            }
+			else
+			{
+				throw new NotImplementedException("Need to add overloaded method support");
+			}
 
-			//// TODO: more error handling
-			//var request = JSON.Deserialize(result.Parameters, method.ParameterType);
+            // TODO: more error handling
+            var request = JSON.Deserialize(result.Parameters, method.ParameterType);
 
-			//var values = method.ParameterType.GetProperties().ToDictionary(p => p.Name, p => p.GetValue(request));
-			//var methodParameters = method.MethodInfo.GetParameters();
-			//var parameterValues = methodParameters.Select(p => values[p.Name]).ToArray();
-			//var methodResult = method.MethodInfo.Invoke(service, parameterValues);
+            var values = method.ParameterType.GetProperties().ToDictionary(p => p.Name, p => p.GetValue(request));
+            var methodParameters = method.MethodInfo.GetParameters();
+            var parameterValues = methodParameters.Select(p => values[p.Name]).ToArray();
+            var methodResult = method.MethodInfo.Invoke(service, parameterValues);
 
-			//return JSON.Serialize(methodResult);
-		}
+            return JSON.Serialize(methodResult);
+        }
 
 		private void BuildParameterWrapper(string route, MethodInfo method, string methodName)
 		{
