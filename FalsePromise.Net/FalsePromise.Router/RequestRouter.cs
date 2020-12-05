@@ -1,4 +1,5 @@
-﻿using FalsePromise.Router.Models;
+﻿using FalsePromise.Interfaces;
+using FalsePromise.Router.Models;
 using Jil;
 using System;
 using System.Collections.Generic;
@@ -6,13 +7,14 @@ using System.Linq;
 using System.Reflection;
 using System.Reflection.Emit;
 using System.Runtime.CompilerServices;
+using System.Threading.Tasks;
 
 [assembly: InternalsVisibleTo("FalsePromise.Router.Tests")]
 
 namespace FalsePromise.Router
 {
 	// TODO: Jil deserialization doesn't fail if parameter not specified; need to catch it
-	public class RequestRouter
+	public class RequestRouter : IRequestRouter
     {
 		internal readonly Dictionary<string, object> _serviceCollection = new Dictionary<string, object>();
 		internal readonly Dictionary<string, List<RouterMethod>> _typeCollection = new Dictionary<string, List<RouterMethod>>();
@@ -177,5 +179,10 @@ namespace FalsePromise.Router
 			propertyBuilder.SetGetMethod(getPropMthdBldr);
 			propertyBuilder.SetSetMethod(setPropMthdBldr);
 		}
-	}
+
+        public async Task<string> Process(string message)
+        {
+			return Execute(message);
+        }
+    }
 }

@@ -11,4 +11,8 @@
     <PackageReference Include="Jil" Version="2.17.0" />
     <PackageReference Include="Microsoft.WinUI" Version="3.0.0-preview3.201113.0" />
   </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\FalsePromise.Interfaces\FalsePromise.Interfaces.csproj" />
+  </ItemGroup>
 </Project>

@@ -1,4 +1,5 @@
-﻿using Jil;
+﻿using FalsePromise.Interfaces;
+using Jil;
 using Microsoft.UI.Xaml.Controls;
 using System;
 using System.Threading.Tasks;
@@ -19,8 +20,19 @@ namespace FalsePromise.WinUI
             _view = view;
         }
 
+        public MessageHandler(WebView2 view, IRequestRouter router) : this(view)
+        {
+            Router = router;
+        }
+
+        public IRequestRouter Router { get; set; }
+
         public virtual async Task<string> Requested(string message)
         {
+            if (Router != null)
+            {
+                return await Router.Process(message);
+            }
             await _view.ExecuteScriptAsync("console.error('[FalsePromise] Override the Requested method to handle requests.')");
             return null;
         }
