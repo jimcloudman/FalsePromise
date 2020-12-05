@@ -13,4 +13,18 @@ namespace FalsePromise.Router.Tests.TestServices
             return "Success";
         }
     }
+    internal class TestServiceWithOverloads
+    {
+        [Route]
+        public string TestStringMethod()
+        {
+            return "Success";
+        }
+
+        [Route]
+        public string TestStringMethod(string problem)
+        {
+            return problem;
+        }
+    }
 }

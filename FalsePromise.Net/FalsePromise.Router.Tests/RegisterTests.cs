@@ -45,7 +45,29 @@ namespace FalsePromise.Router.Tests
                 var service = new TestService();
                 router.Register(service);
                 var serviceTwo = new TestService();
-                router.Register(serviceTwo);
+                router.Register(serviceTwo);                
+            };
+
+            Assert.Throws<RouterException>(() => act());
+        }
+
+        [Test]
+        public void ServiceHasCorrectRoute()
+        {
+            var router = new RequestRouter();
+
+            router.Register(new TestService());
+
+            Assert.IsTrue(router._serviceCollection.ContainsKey("TestService.TestStringMethod"));
+        }
+
+        [Test]
+        public void ServiceWithDuplicateMethodsThrowsException()
+        {
+            Action act = () =>
+            {
+                var router = new RequestRouter();
+                router.Register(new TestServiceWithOverloads());
             };
 
             Assert.Throws<RouterException>(() => act());

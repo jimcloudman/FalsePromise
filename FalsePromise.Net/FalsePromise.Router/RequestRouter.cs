@@ -5,15 +5,17 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Reflection.Emit;
+using System.Runtime.CompilerServices;
+
+[assembly: InternalsVisibleTo("FalsePromise.Router.Tests")]
 
 namespace FalsePromise.Router
 {
 	// TODO: Jil deserialization doesn't fail if parameter not specified; need to catch it
-
 	public class RequestRouter
     {
-		private readonly Dictionary<string, object> _serviceCollection = new Dictionary<string, object>();
-		private readonly Dictionary<string, RouterMethod> _typeCollection = new Dictionary<string, RouterMethod>();
+		internal readonly Dictionary<string, object> _serviceCollection = new Dictionary<string, object>();
+		internal readonly Dictionary<string, RouterMethod> _typeCollection = new Dictionary<string, RouterMethod>();
 
 		public void Register<T>(T service)
 		{
