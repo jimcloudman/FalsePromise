@@ -1,4 +1,6 @@
+using FalsePromise.Router.Tests.TestServices;
 using NUnit.Framework;
+using System;
 
 namespace FalsePromise.Router.Tests
 {
@@ -7,13 +9,22 @@ namespace FalsePromise.Router.Tests
         [SetUp]
         public void Setup()
         {
-            var testRouter = new RequestRouter();
         }
 
         [Test]
-        public void Test1()
+        public void ConstructWithoutExceptions()
         {
-            Assert.Pass();
+            // Arrange
+
+            // Act
+            Action act = () =>
+            {
+                var router = new RequestRouter();
+            };
+
+            // Assert
+
+            Assert.DoesNotThrow(() => act());
         }
     }
 }
