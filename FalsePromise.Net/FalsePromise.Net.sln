@@ -7,6 +7,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FalsePromise.WinUI", "False
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FalsePromise.Router", "FalsePromise.Router\FalsePromise.Router.csproj", "{102B56BB-43FC-4863-A7FF-DB0A23E8872D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FalsePromise.Router.Tests", "FalsePromise.Router.Tests\FalsePromise.Router.Tests.csproj", "{3B00BE05-9060-433C-8875-9A45B463DFDA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -61,6 +63,26 @@ Global
 		{102B56BB-43FC-4863-A7FF-DB0A23E8872D}.Release|x64.Build.0 = Release|Any CPU
 		{102B56BB-43FC-4863-A7FF-DB0A23E8872D}.Release|x86.ActiveCfg = Release|Any CPU
 		{102B56BB-43FC-4863-A7FF-DB0A23E8872D}.Release|x86.Build.0 = Release|Any CPU
+		{3B00BE05-9060-433C-8875-9A45B463DFDA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3B00BE05-9060-433C-8875-9A45B463DFDA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3B00BE05-9060-433C-8875-9A45B463DFDA}.Debug|ARM.ActiveCfg = Debug|Any CPU
+		{3B00BE05-9060-433C-8875-9A45B463DFDA}.Debug|ARM.Build.0 = Debug|Any CPU
+		{3B00BE05-9060-433C-8875-9A45B463DFDA}.Debug|ARM64.ActiveCfg = Debug|Any CPU
+		{3B00BE05-9060-433C-8875-9A45B463DFDA}.Debug|ARM64.Build.0 = Debug|Any CPU
+		{3B00BE05-9060-433C-8875-9A45B463DFDA}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{3B00BE05-9060-433C-8875-9A45B463DFDA}.Debug|x64.Build.0 = Debug|Any CPU
+		{3B00BE05-9060-433C-8875-9A45B463DFDA}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{3B00BE05-9060-433C-8875-9A45B463DFDA}.Debug|x86.Build.0 = Debug|Any CPU
+		{3B00BE05-9060-433C-8875-9A45B463DFDA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3B00BE05-9060-433C-8875-9A45B463DFDA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3B00BE05-9060-433C-8875-9A45B463DFDA}.Release|ARM.ActiveCfg = Release|Any CPU
+		{3B00BE05-9060-433C-8875-9A45B463DFDA}.Release|ARM.Build.0 = Release|Any CPU
+		{3B00BE05-9060-433C-8875-9A45B463DFDA}.Release|ARM64.ActiveCfg = Release|Any CPU
+		{3B00BE05-9060-433C-8875-9A45B463DFDA}.Release|ARM64.Build.0 = Release|Any CPU
+		{3B00BE05-9060-433C-8875-9A45B463DFDA}.Release|x64.ActiveCfg = Release|Any CPU
+		{3B00BE05-9060-433C-8875-9A45B463DFDA}.Release|x64.Build.0 = Release|Any CPU
+		{3B00BE05-9060-433C-8875-9A45B463DFDA}.Release|x86.ActiveCfg = Release|Any CPU
+		{3B00BE05-9060-433C-8875-9A45B463DFDA}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
