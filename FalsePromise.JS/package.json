@@ -1,0 +1,13 @@
+{
+  "name": "false-promise",
+  "version": "0.1.0",
+  "description": "Simple message handler & router for communicating between C# and WinUI 3 WebView2",
+  "main": "index.js",
+  "scripts": {
+  },
+  "dependencies": {
+    "uuid-random": "^1.3.2"
+  },
+  "author": "Jim Cloudman",
+  "license": "MIT"
+}
