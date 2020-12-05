@@ -21,7 +21,7 @@ export default class FalsePromise {
         };
     }
 
-    execute = function(message, then, error) {
+    execute(message, then, error) {
         const id = uuid();
         this.queue.push({id, then, error});
         window.chrome.webview.postMessage(JSON.stringify({
@@ -29,7 +29,7 @@ export default class FalsePromise {
         }));
     }
 
-    fetch = function(message) {
+    fetch(message) {
         return {
             then: thenFunc => {
                 return {
