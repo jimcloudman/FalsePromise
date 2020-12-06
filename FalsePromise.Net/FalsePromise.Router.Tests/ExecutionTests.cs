@@ -17,12 +17,12 @@ namespace FalsePromise.Router.Tests
             var service = new TestService();
             router.Register(service);
 
-            Action act = async () =>
+            Func<Task> act = async () =>
             {
                 await router.Execute("pbbbbbbbbbbbt");
             };
 
-            Assert.Throws<RouterException>(() => act());
+            Assert.ThrowsAsync<RouterException>(() => act());
         }
         [Test]
         public async Task DoesNotThrowWithGoodRequest()
@@ -31,12 +31,12 @@ namespace FalsePromise.Router.Tests
             var service = new TestService();
             router.Register(service);
 
-            Action act = async () =>
+            Func<Task> act = async () =>
             {
                 await router.Execute($@"{{ ""route"": ""TestService.TestStringMethod"", ""parameters"": ""{{}}""}}");
             };
 
-            Assert.DoesNotThrow(() => act());
+            Assert.DoesNotThrowAsync(() => act());
         }
         [Test]
         public async Task GoodRequestReturnsValue()
