@@ -66,7 +66,7 @@ namespace FalsePromise.WinUI
                 throw;
             }
 
-            var response = result == null ? null : $"\"{result}\"";
+            var response = result ?? "null";
             var jsCommand = $"window.falsePromise.callback(\"{req.Id}\", null, {response})";
             try
             {
