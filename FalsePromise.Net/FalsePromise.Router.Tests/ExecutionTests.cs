@@ -67,7 +67,7 @@ namespace FalsePromise.Router.Tests
             var service = new TestComplexService();
             router.Register(service);
 
-            var parameterStr = "{\"parameters\":\"{\\\"SubItem\\\":null,\\\"Sample\\\":\\\"test\\\"}\",\"route\":\"TestComplexService.TestComplexParameterMethod\"}";
+            var parameterStr = "{\"parameters\":\"{\\\"complexItem\\\":{\\\"SubItem\\\":null,\\\"Sample\\\":\\\"test\\\"}}\",\"route\":\"TestComplexService.TestComplexParameterMethod\"}";
             var result = await router.Execute(parameterStr);
 
             Assert.AreEqual(@"""test""", result);
@@ -80,7 +80,7 @@ namespace FalsePromise.Router.Tests
             var service = new TestAsyncComplexService();
             router.Register(service);
 
-            var parameterStr = "{\"parameters\":\"{\\\"SubItem\\\":null,\\\"Sample\\\":\\\"test\\\"}\",\"route\":\"TestAsyncComplexService.TestComplexParameterMethod\"}";
+            var parameterStr = "{\"parameters\":\"{\\\"complexItem\\\":{\\\"SubItem\\\":null,\\\"Sample\\\":\\\"test\\\"}}\",\"route\":\"TestAsyncComplexService.TestComplexParameterMethod\"}";
             var result = await router.Execute(parameterStr);
 
             Assert.AreEqual(@"""test""", result);
