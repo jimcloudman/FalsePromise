@@ -47,7 +47,7 @@ namespace FalsePromise.Router
 			}
 		}
 
-		public string Execute(string jsonString)
+		public async Task<string> Execute(string jsonString)
 		{
 			RouterRequest result;
 			try
@@ -95,9 +95,22 @@ namespace FalsePromise.Router
             var values = method.ParameterType.GetProperties().ToDictionary(p => p.Name, p => p.GetValue(request));
             var methodParameters = method.MethodInfo.GetParameters();
             var parameterValues = methodParameters.Select(p => values[p.Name]).ToArray();
-            var methodResult = method.MethodInfo.Invoke(service, parameterValues);
 
-            return JSON.Serialize(methodResult);
+			var returnType = method.MethodInfo.ReturnType.BaseType?.Name;
+			var isAsync = returnType == typeof(Task).Name;
+			if (isAsync)
+            {
+				var task = (Task)method.MethodInfo.Invoke(service, parameterValues);
+				await task.ConfigureAwait(false);
+				var asyncResult = task.GetType().GetProperty("Result").GetValue(task);
+                return JSON.Serialize(asyncResult);
+            }
+			else
+			{
+				var methodResult = method.MethodInfo.Invoke(service, parameterValues);
+				return JSON.Serialize(methodResult);
+			}
+
         }
 
 		private void BuildParameterWrapper(string route, MethodInfo method, string methodName)
@@ -182,7 +195,7 @@ namespace FalsePromise.Router
 
         public async Task<string> Process(string message)
         {
-			return Execute(message);
+			return await Execute(message);
         }
     }
 }
