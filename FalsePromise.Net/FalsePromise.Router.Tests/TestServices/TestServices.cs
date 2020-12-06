@@ -57,8 +57,30 @@ namespace FalsePromise.Router.Tests.TestServices
         [Route]
         public async Task<string> TestStringMethod()
         {
-            await Task.Delay(100);
+            await Task.Delay(20);
             return "Success";
+        }
+    }
+    internal class TestAsyncComplexService
+    {
+        [Route]
+        public async Task<string> TestComplexParameterMethod(TestComplexClass complexItem)
+        {
+            await Task.Delay(20);
+            return complexItem.Sample;
+        }
+
+        [Route]
+        public async Task<TestComplexClass> TestComplexResultMethod()
+        {
+            await Task.Delay(20);
+            return new TestComplexClass { 
+                Sample = "sample",
+                SubItem = new TestComplexClassSubItem
+                {
+                    Value = 999
+                }
+            };
         }
     }
 }

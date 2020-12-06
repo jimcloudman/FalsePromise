@@ -50,7 +50,7 @@ namespace FalsePromise.Router.Tests
             Assert.AreEqual(@"""Success""", result);
         }
         [Test]
-        public async Task GoodAsyncRequestReturnsSyncValue()
+        public async Task GoodAsyncRequestReturnsValue()
         {
             var router = new RequestRouter();
             var service = new TestAsyncService();
@@ -59,6 +59,18 @@ namespace FalsePromise.Router.Tests
             var result = await router.Execute($@"{{ ""route"": ""TestAsyncService.TestStringMethod"", ""parameters"": ""{{}}""}}");
 
             Assert.AreEqual(@"""Success""", result);
+        }
+        [Test]
+        public async Task GoodComplexAsyncRequestReturnsValue()
+        {
+            var router = new RequestRouter();
+            var service = new TestAsyncComplexService();
+            router.Register(service);
+
+            var parameterStr = "{\"parameters\":\"{\\\"SubItem\\\":null,\\\"Sample\\\":\\\"test\\\"}\",\"route\":\"TestAsyncComplexService.TestComplexParameterMethod\"}";
+            var result = await router.Execute(parameterStr);
+
+            Assert.AreEqual(@"""test""", result);
         }
     }
 }

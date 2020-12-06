@@ -108,5 +108,18 @@ namespace FalsePromise.Router.Tests
 
             Assert.DoesNotThrow(() => act());
         }
+
+        [Test]
+        public void RegisterComplexAsyncWithoutExceptions()
+        {
+            Action act = () =>
+            {
+                var router = new RequestRouter();
+                var service = new TestAsyncComplexService();
+                router.Register(service);
+            };
+
+            Assert.DoesNotThrow(() => act());
+        }
     }
 }
