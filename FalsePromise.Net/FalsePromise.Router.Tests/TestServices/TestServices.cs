@@ -61,6 +61,29 @@ namespace FalsePromise.Router.Tests.TestServices
             return "Success";
         }
     }
+
+    internal class TestComplexService
+    {
+        [Route]
+        public string TestComplexParameterMethod(TestComplexClass complexItem)
+        {
+            return complexItem.Sample;
+        }
+
+        [Route]
+        public TestComplexClass TestComplexResultMethod()
+        {
+            return new TestComplexClass
+            {
+                Sample = "sample",
+                SubItem = new TestComplexClassSubItem
+                {
+                    Value = 999
+                }
+            };
+        }
+    }
+
     internal class TestAsyncComplexService
     {
         [Route]

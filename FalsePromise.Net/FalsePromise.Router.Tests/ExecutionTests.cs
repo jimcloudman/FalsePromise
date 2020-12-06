@@ -61,6 +61,19 @@ namespace FalsePromise.Router.Tests
             Assert.AreEqual(@"""Success""", result);
         }
         [Test]
+        public async Task GoodComplexRequestReturnsValue()
+        {
+            var router = new RequestRouter();
+            var service = new TestComplexService();
+            router.Register(service);
+
+            var parameterStr = "{\"parameters\":\"{\\\"SubItem\\\":null,\\\"Sample\\\":\\\"test\\\"}\",\"route\":\"TestComplexService.TestComplexParameterMethod\"}";
+            var result = await router.Execute(parameterStr);
+
+            Assert.AreEqual(@"""test""", result);
+        }
+
+        [Test]
         public async Task GoodComplexAsyncRequestReturnsValue()
         {
             var router = new RequestRouter();
