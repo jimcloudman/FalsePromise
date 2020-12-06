@@ -4,6 +4,7 @@ using NUnit.Framework;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace FalsePromise.Router.Tests
 {
@@ -48,5 +49,16 @@ namespace FalsePromise.Router.Tests
 
             Assert.AreEqual(@"""Success""", result);
         }
+        //[Test]
+        //public async Task GoodAsyncRequestReturnsValue()
+        //{
+        //    var router = new RequestRouter();
+        //    var service = new TestAsyncService();
+        //    router.Register(service);
+
+        //    var result = await router.Execute($@"{{ ""route"": ""TestAsyncService.TestStringMethod"", ""parameters"": ""{{}}""}}");
+
+        //    Assert.AreEqual(@"""Success""", result);
+        //}
     }
 }

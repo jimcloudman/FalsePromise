@@ -95,5 +95,18 @@ namespace FalsePromise.Router.Tests
 
             Assert.DoesNotThrow(() => act());
         }
+
+        [Test]
+        public void RegisterAsyncWithoutExceptions()
+        {
+            Action act = () =>
+            {
+                var router = new RequestRouter();
+                var service = new TestAsyncService();
+                router.Register(service);
+            };
+
+            Assert.DoesNotThrow(() => act());
+        }
     }
 }

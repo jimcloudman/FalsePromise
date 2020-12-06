@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace FalsePromise.Router.Tests.TestServices
 {
@@ -50,5 +51,14 @@ namespace FalsePromise.Router.Tests.TestServices
 
         }
 
+    }
+    internal class TestAsyncService
+    {
+        [Route]
+        public async Task<string> TestStringMethod()
+        {
+            await Task.Delay(100);
+            return "Success";
+        }
     }
 }
